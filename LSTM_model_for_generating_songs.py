@@ -237,7 +237,7 @@ def generate_text(model:LSTMModel, start_string, generation_length = 1000):
     tqdm._instances.clear()
 
     for i in tqdm(range(generation_length)):
-        predictions, hidden_state = model(input_idx, state, return_state = True)
+        predictions, state = model(input_idx, state, return_state = True)
         predictions = predictions.squeeze(0)
 
         input_idx = torch.multinomial(torch.softmax(predictions, dim = -1), num_samples=1)
